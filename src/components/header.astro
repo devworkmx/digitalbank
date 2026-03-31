@@ -2,30 +2,172 @@
 
 ---
 
-<section>
-  <nav  class="header">
-    <figure>
-        <img src="/src/assets/img/logo-dark.svg" alt="logo" class="logo">
-    </figure>
 
-    <figure>
-        <img src="/src/assets/img/icon-hamburger.svg" alt="hamburger menu" class="hamburger">
-    </figure>
-   
-  </nav>
+<section>
+<nav class="header">
+  <figure class="logo-container">
+    <img src="/src/assets/img/logo-dark.svg" alt="logo" class="logo">
+  </figure>
+
+  <ul class="nav-menu">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">Blog</a></li>
+    <li><a href="#">Careers</a></li>
+  </ul>
+
+  <button class="invite-btn">Request Invite</button>
+
+  <figure class="hamburger-container">
+    <img src="/src/assets/img/icon-hamburger.svg" alt="hamburger menu" class="hamburger">
+  </figure>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <a href="#">Blog</a>
+    <a href="#">Careers</a>
+  </div>
+</nav>
 </section>
 
 
-
-
 <style>
-.header {
-    position: relative;
-    display: flex;
-    background-color: white;
-    justify-content:space-between;
-    align-items: center;
-    padding: 1.4rem 1rem;
-    z-index: 1;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-</style>         
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem 2rem;
+  background: white;
+  position: relative;
+  z-index: 10;
+}
+
+.logo {
+  width: 140px;
+}
+
+/* Menú escritorio */
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+.nav-menu li a {
+  text-decoration: none;
+  color: hsl(233, 8%, 62%);
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.nav-menu li a:hover {
+  color: hsl(233, 26%, 24%);
+}
+
+/* Botón */
+.invite-btn {
+  border: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 999px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  background: linear-gradient(90deg, #31d35c, #2bb7da);
+}
+
+/* Hamburguesa oculta en escritorio */
+.hamburger-container {
+  display: none;
+}
+
+.hamburger {
+  width: 28px;
+  cursor: pointer;
+}
+
+/* ======== MÓVIL ======== */
+@media (max-width: 768px) {
+
+  .header {
+    padding: 1.2rem 1.5rem;
+  }
+
+  /* Oculta menú y botón en móvil */
+  .nav-menu,
+  .invite-btn {
+    display: none;
+  }
+
+  /* Muestra hamburguesa */
+  .hamburger-container {
+    display: block;
+  }
+}
+
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 5.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 3rem);
+  max-width: 320px;
+  background: white;
+  border-radius: 8px;
+  padding: 2rem 1rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  z-index: 30;
+}
+
+.mobile-menu a {
+  text-decoration: none;
+  color: hsl(233, 26%, 24%);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.mobile-menu.active {
+  display: flex !important;
+}
+
+@media (min-width: 769px) {
+  .mobile-menu {
+    display: none !important;
+  }
+}
+</style>
+<script is:inline>
+  window.addEventListener('load', () => {
+    const hamburger = document.querySelector('.hamburger-container');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const hamburgerIcon = document.querySelector('.hamburger');
+
+    if (!hamburger || !mobileMenu) return;
+
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+
+      if (hamburgerIcon) {
+        const isOpen = mobileMenu.classList.contains('active');
+        hamburgerIcon.src = isOpen
+          ? '/src/assets/img/icon-close.svg'
+          : '/src/assets/img/icon-hamburger.svg';
+      }
+    });
+  });
+</script>
+
+
